@@ -6,10 +6,11 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "postinstall": "npm install --legacy-peer-deps"
     },
     "dependencies": {
-        "@auth/core": "^0.38.0",
+        "@auth/core": "^0.34.2",
         "@aws-sdk/credential-providers": "latest",
         "@google/generative-ai": "latest",
         "@hookform/resolvers": "^3.9.1",
