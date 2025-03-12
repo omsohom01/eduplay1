@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@auth/core": "^0.34.2",
+        "@auth/core": "^0.38.0",
         "@aws-sdk/credential-providers": "latest",
         "@google/generative-ai": "latest",
         "@hookform/resolvers": "^3.9.1",
@@ -58,7 +58,7 @@
         "mongodb": "latest",
         "mongodb-client-encryption": "latest",
         "next": "^14.2.4",
-        "next-auth": "^4.24.11",
+        "next-auth": "^4.24.7",
         "next-themes": "latest",
         "nodemailer": "latest",
         "react": "^18.2.0",
