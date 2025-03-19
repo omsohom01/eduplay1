@@ -40,6 +40,7 @@ export interface ActivityLog {
   type: "quiz" | "game"
   subject?: string
   topic?: string
+  difficulty?: string
   score?: number
   totalQuestions?: number
   timeSpent: number

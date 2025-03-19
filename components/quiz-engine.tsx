@@ -16,15 +16,27 @@ interface Question {
   explanation?: string
 }
 
+// Update the QuizEngineProps interface to include timeLimit
 interface QuizEngineProps {
   questions: Question[]
   subjectColor: string
   subject?: string
   topic?: string
+  difficulty?: string
+  timeLimit?: number
   onComplete?: (score: number, totalQuestions: number) => void
 }
 
-export function QuizEngine({ questions, subjectColor, subject, topic, onComplete }: QuizEngineProps) {
+// Add timeLimit to the destructured props
+export function QuizEngine({
+  questions,
+  subjectColor,
+  subject,
+  topic,
+  difficulty,
+  timeLimit,
+  onComplete,
+}: QuizEngineProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [isAnswerChecked, setIsAnswerChecked] = useState(false)
@@ -42,7 +54,7 @@ export function QuizEngine({ questions, subjectColor, subject, topic, onComplete
   const currentQuestion = questions[currentQuestionIndex]
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100
 
-  // Set start time when component mounts and set up activity tracking
+  // Update the useEffect for the timer to use the timeLimit prop if provided
   useEffect(() => {
     setStartTime(Date.now())
     lastActivityTime.current = Date.now()
@@ -59,12 +71,26 @@ export function QuizEngine({ questions, subjectColor, subject, topic, onComplete
       }
     }, 1000)
 
+    // If timeLimit is provided, set up a timer to end the quiz when time is up
+    if (timeLimit) {
+      const timer = setTimeout(() => {
+        completeQuiz()
+      }, timeLimit * 1000)
+
+      return () => {
+        if (activityTimerRef.current) {
+          clearInterval(activityTimerRef.current)
+        }
+        clearTimeout(timer)
+      }
+    }
+
     return () => {
       if (activityTimerRef.current) {
         clearInterval(activityTimerRef.current)
       }
     }
-  }, [])
+  }, [timeLimit])
 
   // Track user activity
   const recordActivity = () => {
@@ -126,6 +152,7 @@ export function QuizEngine({ questions, subjectColor, subject, topic, onComplete
     }
   }
 
+  // Update the logActivity function call in the completeQuiz function to include difficulty
   const completeQuiz = () => {
     setQuizCompleted(true)
 
@@ -145,6 +172,7 @@ export function QuizEngine({ questions, subjectColor, subject, topic, onComplete
         type: "quiz",
         subject,
         topic,
+        difficulty: difficulty || "standard",
         score: finalScore,
         totalQuestions: questions.length,
         timeSpent,

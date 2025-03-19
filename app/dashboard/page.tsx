@@ -609,6 +609,14 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
+          <div className="mt-6 flex justify-center">
+            <Button asChild variant="outline" className="flex items-center gap-2">
+              <Link href="/test-your-level">
+                <Brain className="h-4 w-4 text-primary" />
+                Test Your Knowledge Level
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AuthProvider } from "@/contexts/auth-context"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,13 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1 pt-16">{children}</main>
-            <Footer />
-          </div>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1 pt-16">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

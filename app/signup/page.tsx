@@ -121,7 +121,7 @@ export default function SignUpPage() {
         <CardFooter className="flex justify-center">
           <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
-            <Link href="/signin" className="text-primary hover:underline"> 
+            <Link href="/signin" className="text-primary hover:underline">
               Sign in
             </Link>
           </p>
@@ -130,5 +130,3 @@ export default function SignUpPage() {
     </div>
   )
 }
-
-// helloo

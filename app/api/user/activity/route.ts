@@ -4,16 +4,17 @@ import { ObjectId } from "mongodb"
 import { getSession } from "@/lib/auth"
 import type { ActivityLog } from "@/lib/models/user"
 
-export async function POST(req: NextRequest) {
+// Update the activity logging to include difficulty
+export async function POST(request: NextRequest) {
   try {
-    const session = await getSession(req)
+    const session = await getSession(request)
 
     if (!session) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
     }
 
     const userId = session.id
-    const activityData = await req.json()
+    const activityData = await request.json()
 
     if (!activityData.type || typeof activityData.timeSpent !== "number") {
       return NextResponse.json({ error: "Invalid input" }, { status: 422 })
